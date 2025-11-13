@@ -3,7 +3,7 @@ import { useMapStore } from '../store/mapStore';
 import { Search, Filter, X } from 'lucide-react';
 
 export function SearchFilter() {
-  const { data, pageTypeFilter, setPageTypeFilter } = useMapStore();
+  const { data, pageTypeFilter, selectedPageId, setPageTypeFilter } = useMapStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -57,7 +57,7 @@ export function SearchFilter() {
           {matchedPages.map((page) => (
             <button
               key={page.id}
-              className="search-result-item"
+              className={`search-result-item ${selectedPageId === page.id ? 'selected' : ''}`}
               onClick={() => handlePageClick(page.id)}
             >
               <div className="search-result-type">{page.pageType}</div>

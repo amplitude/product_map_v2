@@ -3,7 +3,7 @@ import { ProductMap } from './components/ProductMap';
 import { ResizableSidebar } from './components/ResizableSidebar';
 import { ScreenshotViewer } from './components/ScreenshotViewer';
 import { BottomInsightsPanel } from './components/BottomInsightsPanel';
-import { RightHierarchyPanel } from './components/RightHierarchyPanel';
+import { RightPanel } from './components/RightPanel';
 import { useProductData } from './hooks/useProductData';
 import { useMapStore } from './store/mapStore';
 
@@ -19,7 +19,7 @@ function App() {
         {selectedPageId ? <ScreenshotViewer /> : <ProductMap />}
         <BottomInsightsPanel />
       </main>
-      <RightHierarchyPanel />
+      <RightPanel />
     </div>
   );
 }

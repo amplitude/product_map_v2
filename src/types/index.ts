@@ -35,11 +35,22 @@ export interface Journey {
   importance: 'critical' | 'high' | 'medium' | 'low';
 }
 
+export interface ComponentAction {
+  selector: string;
+  label: string;
+  actionType: 'click' | 'input' | 'scroll' | 'hover';
+  position: { x: number; y: number }; // Percentage position on screenshot
+  sequenceOrder: number; // Order within the step
+  importance: 'primary' | 'secondary' | 'tertiary';
+}
+
 export interface JourneyStep {
   pageId: string;
   stepNumber: number;
   dropOffRate?: number;
   avgTimeToNext?: number;
+  componentActions?: ComponentAction[]; // Sequence of components interacted with
+  primaryAction?: string; // Main action description (e.g., "Click Submit Button")
 }
 
 export interface Edge {

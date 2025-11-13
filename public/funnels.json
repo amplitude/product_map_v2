@@ -18,20 +18,23 @@
     {
       "funnel_name": "New User Activation",
       "funnel_type": "conversion",
-      "description": "This funnel tracks a new user from creation, through an onboarding quiz, to viewing a paywall and successfully making a purchase.",
+      "description": "Complete activation flow with component-level granularity.",
       "steps": [
-        "User Created",
-        "Onboarding Quiz Started",
-        "Onboarding Quiz Question Answered",
-        "Viewed Paywall Landing Screen",
-        "Viewed Regular Paywall Screen",
-        "Checkout Processed Successfully"
+        "Login - Enter Email",
+        "Login - Enter Password",
+        "Login - Click Submit",
+        "Dashboard - View Welcome",
+        "Dashboard - Click Create Chart",
+        "Chart Builder - Select Chart Type",
+        "Chart Builder - Choose Data Source",
+        "Chart Builder - Configure Query",
+        "Chart Builder - Run Analysis"
       ],
       "estimated_importance": "critical",
       "drop_off_risks": [
-        "Users may not start or complete the onboarding quiz",
-        "The transition from the quiz to the paywall could be jarring",
-        "Pricing on the paywall may be a significant barrier"
+        "Login friction",
+        "Dashboard confusion",
+        "Chart builder complexity"
       ]
     },
     {

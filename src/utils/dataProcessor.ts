@@ -186,6 +186,65 @@ export function buildEdges(screenshots: Screenshot[], _pages: PageNode[]): Edge[
 }
 
 /**
+ * Generate component-level actions for a journey step
+ */
+function generateComponentActionsForStep(stepName: string, _stepIndex: number) {
+  const stepLower = stepName.toLowerCase();
+
+  // Login/Signup flows
+  if (stepLower.includes('login') || stepLower.includes('sign in')) {
+    return [
+      { selector: 'input[type="email"]', label: 'Email Input', actionType: 'input' as const, position: { x: 50, y: 45 }, sequenceOrder: 1, importance: 'primary' as const },
+      { selector: 'input[type="password"]', label: 'Password Input', actionType: 'input' as const, position: { x: 50, y: 55 }, sequenceOrder: 2, importance: 'primary' as const },
+      { selector: 'button[type="submit"]', label: 'Log In Button', actionType: 'click' as const, position: { x: 50, y: 68 }, sequenceOrder: 3, importance: 'primary' as const },
+    ];
+  }
+
+  if (stepLower.includes('signup') || stepLower.includes('register')) {
+    return [
+      { selector: '.google-auth-btn', label: 'Sign in with Google', actionType: 'click' as const, position: { x: 50, y: 38 }, sequenceOrder: 1, importance: 'secondary' as const },
+      { selector: 'input[name="email"]', label: 'Email Field', actionType: 'input' as const, position: { x: 50, y: 50 }, sequenceOrder: 2, importance: 'primary' as const },
+      { selector: 'button.create-account', label: 'Create Account', actionType: 'click' as const, position: { x: 50, y: 70 }, sequenceOrder: 3, importance: 'primary' as const },
+    ];
+  }
+
+  // Dashboard/Home flows
+  if (stepLower.includes('dashboard') || stepLower.includes('home')) {
+    return [
+      { selector: '.main-nav', label: 'Navigation Menu', actionType: 'hover' as const, position: { x: 15, y: 12 }, sequenceOrder: 1, importance: 'secondary' as const },
+      { selector: '.create-chart-btn', label: 'Create Chart Button', actionType: 'click' as const, position: { x: 85, y: 15 }, sequenceOrder: 2, importance: 'primary' as const },
+      { selector: '.quick-stats', label: 'View Statistics', actionType: 'click' as const, position: { x: 30, y: 40 }, sequenceOrder: 3, importance: 'tertiary' as const },
+    ];
+  }
+
+  // Chart/Analysis flows
+  if (stepLower.includes('chart') || stepLower.includes('analysis')) {
+    return [
+      { selector: '.chart-type-selector', label: 'Chart Type', actionType: 'click' as const, position: { x: 20, y: 25 }, sequenceOrder: 1, importance: 'primary' as const },
+      { selector: '.data-source-picker', label: 'Select Data Source', actionType: 'click' as const, position: { x: 20, y: 45 }, sequenceOrder: 2, importance: 'primary' as const },
+      { selector: '.run-query-btn', label: 'Run Query', actionType: 'click' as const, position: { x: 85, y: 20 }, sequenceOrder: 3, importance: 'primary' as const },
+      { selector: '.chart-canvas', label: 'View Results', actionType: 'scroll' as const, position: { x: 60, y: 60 }, sequenceOrder: 4, importance: 'secondary' as const },
+    ];
+  }
+
+  // Settings flows
+  if (stepLower.includes('settings')) {
+    return [
+      { selector: '.settings-nav', label: 'Settings Menu', actionType: 'click' as const, position: { x: 25, y: 30 }, sequenceOrder: 1, importance: 'secondary' as const },
+      { selector: '.profile-section', label: 'Profile Settings', actionType: 'click' as const, position: { x: 50, y: 40 }, sequenceOrder: 2, importance: 'primary' as const },
+      { selector: '.save-btn', label: 'Save Changes', actionType: 'click' as const, position: { x: 70, y: 75 }, sequenceOrder: 3, importance: 'primary' as const },
+    ];
+  }
+
+  // Default generic flow
+  return [
+    { selector: '.page-header', label: 'Page Header', actionType: 'hover' as const, position: { x: 50, y: 15 }, sequenceOrder: 1, importance: 'tertiary' as const },
+    { selector: '.main-content', label: 'Main Content', actionType: 'scroll' as const, position: { x: 50, y: 50 }, sequenceOrder: 2, importance: 'secondary' as const },
+    { selector: '.cta-button', label: 'Primary Action', actionType: 'click' as const, position: { x: 50, y: 70 }, sequenceOrder: 3, importance: 'primary' as const },
+  ];
+}
+
+/**
  * Map funnel data to journey objects
  */
 export function mapFunnelsToJourneys(funnelData: any[], pages: PageNode[]): Journey[] {
@@ -209,11 +268,16 @@ export function mapFunnelsToJourneys(funnelData: any[], pages: PageNode[]): Jour
         );
       });
 
+      // Generate component-level actions for this step
+      const componentActions = generateComponentActionsForStep(stepName, stepIndex);
+
       return {
         pageId: matchedPage?.id || pages[stepIndex % pages.length]?.id || '',
         stepNumber: stepIndex + 1,
-        dropOffRate: Math.random() * 0.3, // Mock data - would come from analytics
-        avgTimeToNext: Math.random() * 120, // Mock data - seconds
+        dropOffRate: Math.random() * 0.3,
+        avgTimeToNext: Math.random() * 120,
+        componentActions,
+        primaryAction: componentActions[0]?.label || stepName,
       };
     });
 

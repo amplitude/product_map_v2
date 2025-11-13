@@ -8,7 +8,7 @@ export function RightHierarchyPanel() {
   const [isResizing, setIsResizing] = useState(false);
   const [expandedPages, setExpandedPages] = useState<Set<string>>(new Set());
 
-  const { data, layers, selectedJourneyId, setSelectedPage } = useMapStore();
+  const { data, layers, selectedJourneyId, selectedPageId, setSelectedPage } = useMapStore();
 
   // Resize functionality
   useEffect(() => {
@@ -149,7 +149,7 @@ export function RightHierarchyPanel() {
               return (
                 <div key={page.id} className="hierarchy-page">
                   <div
-                    className="hierarchy-page-row"
+                    className={`hierarchy-page-row ${selectedPageId === page.id ? 'selected' : ''}`}
                     onClick={() => setSelectedPage(page.id)}
                   >
                     {hasObjects && (

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   ReactFlow,
   Background,
@@ -10,11 +10,13 @@ import {
 import type { Node, Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { PageNode } from './PageNode';
+import { JourneyStepNode } from './JourneyStepNode';
 import { useMapStore } from '../store/mapStore';
 import type { PageNode as PageNodeType } from '../types';
 
 const nodeTypes = {
   pageNode: PageNode,
+  journeyStepNode: JourneyStepNode,
 };
 
 /**
@@ -54,27 +56,40 @@ export function ProductMap() {
   const nodes = useMemo(() => {
     if (!data) return [];
 
-    // Filter pages by type if filter is active
+    // If journey is selected, show JOURNEY STEPS as nodes (semantic actions)
+    if (selectedJourneyId) {
+      const journey = data.journeys.find(j => j.id === selectedJourneyId);
+      if (journey) {
+        const nodeSpacingX = 420;
+
+        return journey.steps.map((step, index) => {
+          const page = data.pages.find(p => p.id === step.pageId);
+          if (!page) return null;
+
+          return {
+            id: `${journey.id}-step-${step.stepNumber}`,
+            type: 'journeyStepNode',
+            position: {
+              x: index * nodeSpacingX + 120,
+              y: 100,
+            },
+            data: {
+              step,
+              page,
+              journeyId: journey.id,
+            } as unknown as Record<string, unknown>,
+          };
+        }).filter(Boolean) as Node[];
+      }
+    }
+
+    // Otherwise, show PAGE-LEVEL nodes (default view)
     let filteredPages = data.pages;
     if (pageTypeFilter) {
       filteredPages = data.pages.filter(p => p.pageType === pageTypeFilter);
     }
 
-    const baseNodes = calculateHorizontalLayout(filteredPages, data.edges);
-
-    // Highlight nodes in selected journey
-    if (selectedJourneyId) {
-      const journey = data.journeys.find(j => j.id === selectedJourneyId);
-      if (journey) {
-        const journeyPageIds = new Set(journey.steps.map(s => s.pageId));
-        return baseNodes.map(node => ({
-          ...node,
-          className: journeyPageIds.has(node.id) ? 'journey-highlighted' : 'journey-dimmed',
-        }));
-      }
-    }
-
-    return baseNodes;
+    return calculateHorizontalLayout(filteredPages, data.edges);
   }, [data, selectedJourneyId, pageTypeFilter]);
 
   const edges = useMemo<Edge[]>(() => {
@@ -140,10 +155,6 @@ export function ProductMap() {
     });
   }, [data, selectedJourneyId, pageTypeFilter]);
 
-  const onNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
-    console.log('Node clicked:', node.data);
-  }, []);
-
   if (!data) {
     return (
       <div className="product-map-loading">
@@ -159,7 +170,6 @@ export function ProductMap() {
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
-        onNodeClick={onNodeClick}
         connectionLineType={ConnectionLineType.SmoothStep}
         fitView
         fitViewOptions={{
