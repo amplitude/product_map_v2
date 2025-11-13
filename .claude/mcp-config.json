@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "playwright-automation": {
+      "command": "node",
+      "args": ["automation/mcp-server.ts"],
+      "description": "Playwright automation server for page capture and event generation"
+    }
+  }
+}

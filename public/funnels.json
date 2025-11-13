@@ -1,0 +1,81 @@
+{
+  "funnels": [
+    {
+      "funnel_name": "User Signup Funnel",
+      "funnel_type": "conversion",
+      "description": "Tracks the basic user registration process, from starting the signup form to successful completion.",
+      "steps": [
+        "Signup Started",
+        "Signup Completed"
+      ],
+      "estimated_importance": "critical",
+      "drop_off_risks": [
+        "Complex or long signup form",
+        "Technical errors during submission",
+        "Lack of clear value proposition on the signup page"
+      ]
+    },
+    {
+      "funnel_name": "New User Activation",
+      "funnel_type": "conversion",
+      "description": "This funnel tracks a new user from creation, through an onboarding quiz, to viewing a paywall and successfully making a purchase.",
+      "steps": [
+        "User Created",
+        "Onboarding Quiz Started",
+        "Onboarding Quiz Question Answered",
+        "Viewed Paywall Landing Screen",
+        "Viewed Regular Paywall Screen",
+        "Checkout Processed Successfully"
+      ],
+      "estimated_importance": "critical",
+      "drop_off_risks": [
+        "Users may not start or complete the onboarding quiz",
+        "The transition from the quiz to the paywall could be jarring",
+        "Pricing on the paywall may be a significant barrier"
+      ]
+    },
+    {
+      "funnel_name": "KYC Activation Funnel",
+      "funnel_type": "conversion",
+      "description": "This funnel is common in FinTech or other regulated industries, tracking the user's journey through Know-Your-Customer (KYC) identity verification steps.",
+      "steps": [
+        "Clicked Membership Type Card on Homepage",
+        "Clicked 'Activate Now' in Setup Modal",
+        "Clicked 'Submit' on KYC Step 4"
+      ],
+      "estimated_importance": "critical",
+      "drop_off_risks": [
+        "Lack of trust or clarity about why KYC is needed",
+        "Friction in uploading documents or filling out information",
+        "Technical failures with the verification process"
+      ]
+    },
+    {
+      "funnel_name": "Core Feature Engagement",
+      "funnel_type": "engagement",
+      "description": "Tracks the core loop of a product: adding an item and then performing a key value-driving action on it. This is a measure of user activation.",
+      "steps": [
+        "Plant Added",
+        "User Plant Care Performed"
+      ],
+      "estimated_importance": "high",
+      "drop_off_risks": [
+        "Users add a plant but don't understand how or why to perform care actions",
+        "Notifications or reminders to perform care are ineffective"
+      ]
+    },
+    {
+      "funnel_name": "Subscription Cancellation",
+      "funnel_type": "retention",
+      "description": "A retention-focused funnel that tracks users from purchasing a subscription to canceling it. This is used to analyze churn behavior.",
+      "steps": [
+        "Subscription Purchased",
+        "Subscription Cancelled by User"
+      ],
+      "estimated_importance": "critical",
+      "drop_off_risks": [
+        "This funnel measures the 'drop-off' from the entire product value prop"
+      ]
+    }
+  ]
+}
