@@ -335,17 +335,44 @@ export interface PullRequest {
   url: string;
 }
 
+// Session Replay data structure
+export interface SessionReplay {
+  sessionId: string;
+  userId: string;
+  duration: number;
+  deviceType: string;
+  highlightTitle: string;
+  highlightDescription: string;
+  url: string;
+}
+
+// Recommended Action structure
+export interface RecommendedAction {
+  id: string;
+  title: string;
+  actionType: 'web_experiment' | 'guide' | 'survey' | 'code_change';
+  description: string;
+  linkedPR?: string;
+  linkedExperiment?: string;
+  linkedGuide?: string;
+  linkedSurvey?: string;
+  estimatedImpact: string;
+}
+
 // Product Insights layer types
 export interface FrictionPoint {
   id: string;
-  name: string;
+  sessionId: string;
   type: 'FRICTION';
-  description: string;
+  title: string;
+  impact: 'High' | 'Medium' | 'Low';
+  segment: string;
+  category: string;
+  location: string;
+  description: string; // Rich markdown content
   pageId: string;
-  position: { x: number; y: number };
   severity: 'HIGH' | 'MEDIUM' | 'LOW';
   contentMeta: {
-    category: string;
     affectedUsers: number;
     dropOffRate?: number;
     errorRate?: number;
@@ -353,17 +380,22 @@ export interface FrictionPoint {
     completionRate?: number;
     avgLoadTime?: number;
     targetLoadTime?: number;
-    avgRetries?: number;
-    avgTimeToComplete?: number;
-    targetTime?: number;
+    avgRefocusEvents?: number;
+    avgTimeOnFields?: number;
+    backAttempts?: number;
+    revenueImpact?: number;
+    bounceRate?: number;
+    p95LoadTime?: number;
     usageRate?: number;
     expectedUsageRate?: number;
+    discoveryTime?: number;
     detectedAt: string;
     linkedEvents: string[];
-    linkedMetrics?: string[];
-    relatedFeedback?: string[];
-    dropOffSteps?: number[];
+    linkedMetrics: string[];
   };
+  sessionReplays: SessionReplay[];
+  recommendedActions: RecommendedAction[];
+  supportingEvidence: string; // Rich markdown content
   projectId: string;
 }
 

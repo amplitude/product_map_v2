@@ -2,430 +2,345 @@
   "frictionPoints": [
     {
       "id": "friction_001",
-      "name": "Slow Page Load",
+      "sessionId": "sess_friction_001",
       "type": "FRICTION",
-      "description": "Page takes >3s to load, users drop off",
-      "pageId": "placeholder_1",
+      "title": "Form validation errors causing users to repeatedly refocus on input fields without completing",
+      "impact": "High",
+      "segment": "Users attempting to complete signup form (79% drop-off, ~8,923 users)",
+      "category": "Forms & Input",
+      "location": "Signup page, registration forms, profile setup",
+      "description": "**12% of non-converting sessions** show input refocus behavior—users touching 5+ input fields with repeated returns to the same fields, indicating **form validation errors or unclear field requirements**. Sessions show users entering data (up to 1,678 characters in one case), then refocusing on the same field multiple times.\n\nThe **email input field** and **password confirmation field** are the most problematic, with **41 and 32 total interactions** respectively. Users are trying to complete but getting stuck on validation.\n\n**Key metrics:**\n- Average refocus events: **3.4 per session**\n- Time spent on problematic fields: **45.2 seconds**\n- Form abandonment after refocus: **79%**\n- Users affected: **8,923**",
+      "pageId": "placeholder",
       "severity": "HIGH",
       "contentMeta": {
-        "category": "PERFORMANCE",
         "affectedUsers": 8923,
-        "dropOffRate": 42.3,
-        "avgLoadTime": 5.2,
-        "targetLoadTime": 2.0,
+        "dropOffRate": 79.0,
+        "avgRefocusEvents": 3.4,
+        "avgTimeOnFields": 45.2,
         "detectedAt": "2025-11-10T14:30:00Z",
-        "linkedEvents": ["Page Viewed", "User Exited"],
-        "linkedMetrics": ["bounce_rate", "load_time"]
+        "linkedEvents": ["Input Refocus", "Form Error", "Form Abandoned"],
+        "linkedMetrics": ["form_completion_rate", "signup_conversion"]
       },
+      "sessionReplays": [
+        {
+          "sessionId": "432945e6-2883-40a8-8b1b-2bc7de26330f",
+          "userId": "user_8923",
+          "duration": 1068,
+          "deviceType": "Mac",
+          "highlightTitle": "Multiple Field Refocus - 4 Refocus Events",
+          "highlightDescription": "User touched 4 input fields with 4 refocus events over 17.8 minutes. Indicates repeated returns to fields, suggesting validation issues.",
+          "url": "https://app.amplitude.com/analytics/demo/session-replay/432945e6"
+        },
+        {
+          "sessionId": "a4242646-b96c-47fe-b166-fe8991b65c5b",
+          "userId": "user_3421",
+          "duration": 872,
+          "deviceType": "Mac",
+          "highlightTitle": "Extensive Multi-Field Form Struggle - 20 Fields",
+          "highlightDescription": "User touched 20 distinct input fields with 31 text input events over 14.5 minutes. Extreme form complexity.",
+          "url": "https://app.amplitude.com/analytics/demo/session-replay/a4242646"
+        }
+      ],
+      "recommendedActions": [
+        {
+          "id": "action_001",
+          "title": "Display inline validation feedback with clear error messages",
+          "actionType": "web_experiment",
+          "description": "Add real-time validation below each form field showing exactly what's wrong (e.g., 'Password must be 8+ characters' vs 'Invalid password'). Test against current design to measure reduction in refocus events.",
+          "linkedPR": "pr_006",
+          "estimatedImpact": "Reduce form abandonment by 23-35%"
+        },
+        {
+          "id": "action_002",
+          "title": "Simplify password requirements and show requirements upfront",
+          "actionType": "web_experiment",
+          "description": "Replace complex password rules with simpler requirements. Show checklist of requirements above field before user starts typing. Test impact on signup completion rate.",
+          "linkedExperiment": "exp_008",
+          "estimatedImpact": "Improve form completion by 18-25%"
+        },
+        {
+          "id": "action_003",
+          "title": "Add guided tooltips for complex form fields",
+          "actionType": "guide",
+          "description": "Create contextual help tooltips that appear on first focus of problematic fields (email format, password requirements). Guide users proactively.",
+          "linkedGuide": "guide_001",
+          "estimatedImpact": "Reduce field errors by 40%"
+        }
+      ],
+      "supportingEvidence": "Analysis of 100 signup sessions identified 40 sessions (40%) with friction indicators. **Input refocus affected 33 of these 40 sessions (82.5%)**. Average 3.4 refocus events per affected session. Users who refocus >2 times have 79% abandonment rate vs 23% for users with 0-1 refocus.",
       "projectId": "123456"
     },
     {
       "id": "friction_002",
-      "name": "Confusing Form Labels",
+      "sessionId": "sess_friction_002",
       "type": "FRICTION",
-      "description": "Users repeatedly misunderstand form fields",
-      "pageId": "placeholder_2",
-      "severity": "MEDIUM",
+      "title": "Page load times >5 seconds causing immediate bounce—optimize critical path rendering",
+      "impact": "High",
+      "segment": "Users visiting high-traffic landing pages (42% bounce rate, ~25,000 users)",
+      "category": "Performance",
+      "location": "Dashboard pages, analytics home, chart builder pages",
+      "description": "**High-priority pages taking 5.2+ seconds to load**, causing users to abandon before content renders. Analysis shows **42.3% bounce rate** for pages exceeding 3-second threshold.\n\n**Performance breakdown:**\n- P50 load time: **4.8 seconds** (target: <2s)\n- P75 load time: **6.2 seconds**\n- P95 load time: **8.9 seconds**\n- Affected users per day: **25,000**\n- Estimated conversion loss: **-18.4%**\n\n**Root causes identified:**\n1. **Large JavaScript bundle** (payment-widget.js: 340KB)\n2. **Unoptimized images** (2.4MB product images)\n3. **Blocking analytics scripts** (180KB)",
+      "pageId": "placeholder",
+      "severity": "HIGH",
       "contentMeta": {
-        "category": "USABILITY",
-        "affectedUsers": 3456,
-        "errorRate": 28.4,
-        "avgRetries": 2.3,
-        "detectedAt": "2025-11-11T09:15:00Z",
-        "linkedEvents": ["Form Error", "Field Edited"],
-        "relatedFeedback": ["Form is confusing", "Labels are unclear"]
+        "affectedUsers": 25000,
+        "bounceRate": 42.3,
+        "avgLoadTime": 5.2,
+        "targetLoadTime": 2.0,
+        "p95LoadTime": 8.9,
+        "detectedAt": "2025-11-10T14:30:00Z",
+        "linkedEvents": ["Page View Started", "Page Abandoned", "Browser Tab Closed"],
+        "linkedMetrics": ["bounce_rate", "page_load_time", "conversion_rate"]
       },
+      "sessionReplays": [
+        {
+          "sessionId": "perf_001_session_1",
+          "userId": "user_12456",
+          "duration": 3,
+          "deviceType": "Mobile",
+          "highlightTitle": "Immediate Bounce After 3s Wait",
+          "highlightDescription": "User waited 3.2 seconds for page to load, then immediately closed tab. No interaction recorded.",
+          "url": "https://app.amplitude.com/analytics/demo/session-replay/perf001"
+        },
+        {
+          "sessionId": "perf_001_session_2",
+          "userId": "user_8734",
+          "duration": 8,
+          "deviceType": "Desktop",
+          "highlightTitle": "Multiple Refresh Attempts Before Abandoning",
+          "highlightDescription": "User refreshed page 3 times over 8 seconds trying to get content to load. Eventually gave up.",
+          "url": "https://app.amplitude.com/analytics/demo/session-replay/perf002"
+        }
+      ],
+      "recommendedActions": [
+        {
+          "id": "action_004",
+          "title": "Implement lazy loading for below-fold content and images",
+          "actionType": "web_experiment",
+          "description": "Defer loading of images and content below the fold. Prioritize critical rendering path. Measure impact on Time to Interactive (TTI) and bounce rate.",
+          "linkedPR": "pr_003",
+          "estimatedImpact": "Reduce load time by 60%, bounce rate by 35%"
+        },
+        {
+          "id": "action_005",
+          "title": "Add skeleton loading states and progress indicators",
+          "actionType": "web_experiment",
+          "description": "Show skeleton UI immediately while content loads. Add progress bar for slow-loading resources. Reduce perceived wait time.",
+          "linkedPR": "pr_008",
+          "estimatedImpact": "Improve perceived performance by 45%"
+        },
+        {
+          "id": "action_006",
+          "title": "Enable CDN caching and optimize bundle size",
+          "actionType": "web_experiment",
+          "description": "Implement aggressive CDN caching for static assets. Code-split large bundles. Compress images to WebP format.",
+          "linkedPR": "pr_009",
+          "estimatedImpact": "Reduce load time by 2.4 seconds"
+        }
+      ],
+      "supportingEvidence": "Performance monitoring over 7 days across 175,000 sessions. Pages with <2s load time show **8.3% bounce rate** vs **42.3% for pages >5s**. Each additional second of load time correlates with **7.2% increase in bounce rate**. Mobile users (60% of traffic) are 2.3x more affected by slow loads than desktop.",
       "projectId": "123456"
     },
     {
       "id": "friction_003",
-      "name": "Missing Back Button",
+      "sessionId": "sess_friction_003",
       "type": "FRICTION",
-      "description": "Users cannot navigate back easily",
-      "pageId": "placeholder_3",
+      "title": "Missing back navigation causing 34% abandonment—users feel trapped in checkout flow",
+      "impact": "High",
+      "segment": "Users in checkout flow who attempt to go back (34% abandon, ~5,234 users)",
+      "category": "Navigation & Flow",
+      "location": "Checkout payment step, multi-step forms, wizard flows",
+      "description": "Users **cannot navigate back** from the payment step, causing frustration and abandonment. **34.2% of users abandon** when they realize they can't edit previous steps.\n\n**Behavioral patterns observed:**\n- Users click browser back button (**average 2.8 attempts**)\n- Some users close entire tab/window to start over (**18% of abandonments**)\n- Mobile users affected **2.1x more** than desktop (no visible back button)\n\n**User feedback highlights:**\n- *\"Can't go back to edit my items\"* (mentioned 67 times)\n- *\"Accidentally closed tab trying to go back\"* (mentioned 34 times)\n- *\"Feels like a trap\"* (mentioned 23 times)\n\n**Impact on revenue:**\n- Estimated **$127,000/month in lost revenue**\n- Average cart value of abandoned sessions: **$89.50**",
+      "pageId": "placeholder",
       "severity": "HIGH",
       "contentMeta": {
-        "category": "NAVIGATION",
         "affectedUsers": 5234,
         "abandonRate": 34.2,
+        "backAttempts": 2.8,
+        "revenueImpact": 127000,
         "detectedAt": "2025-11-09T11:20:00Z",
-        "linkedEvents": ["Browser Back Button"],
-        "relatedFeedback": ["Can't go back", "Navigation is broken"]
+        "linkedEvents": ["Browser Back Button", "Tab Closed", "Checkout Abandoned"],
+        "linkedMetrics": ["checkout_completion", "cart_abandonment", "revenue"]
       },
+      "sessionReplays": [
+        {
+          "sessionId": "nav_001_session_1",
+          "userId": "user_4521",
+          "duration": 124,
+          "deviceType": "Desktop",
+          "highlightTitle": "Multiple Back Button Attempts - 4 Clicks",
+          "highlightDescription": "User clicked browser back button 4 times, then gave up and closed tab. Cart value: $124.99",
+          "url": "https://app.amplitude.com/analytics/demo/session-replay/nav001"
+        },
+        {
+          "sessionId": "nav_001_session_2",
+          "userId": "user_7823",
+          "duration": 89,
+          "deviceType": "Mobile",
+          "highlightTitle": "Immediate Tab Close After Back Attempt",
+          "highlightDescription": "Mobile user tried to go back, couldn't find button, immediately closed browser. Cart value: $67.50",
+          "url": "https://app.amplitude.com/analytics/demo/session-replay/nav002"
+        }
+      ],
+      "recommendedActions": [
+        {
+          "id": "action_007",
+          "title": "Add prominent 'Edit Cart' button in checkout flow",
+          "actionType": "web_experiment",
+          "description": "Add visible back/edit button at each checkout step. Test placement (top vs bottom) and copy ('Back' vs 'Edit Cart' vs '← Previous Step'). Measure impact on completion rate.",
+          "linkedExperiment": "exp_002",
+          "estimatedImpact": "Reduce abandonment by 25-30%, recover $32K/month"
+        },
+        {
+          "id": "action_008",
+          "title": "Implement breadcrumb navigation for checkout steps",
+          "actionType": "web_experiment",
+          "description": "Add clickable breadcrumb showing Cart → Shipping → Payment → Review. Allow users to jump back to any previous step.",
+          "linkedPR": "pr_001",
+          "estimatedImpact": "Improve checkout UX, reduce abandonment by 15%"
+        },
+        {
+          "id": "action_009",
+          "title": "Add 'Save for later' option instead of forcing abandonment",
+          "actionType": "guide",
+          "description": "When users attempt to leave checkout, offer to save their cart and send reminder email. Reduces pressure to complete immediately.",
+          "linkedGuide": "guide_003",
+          "estimatedImpact": "Recover 12% of abandonments via email"
+        }
+      ],
+      "supportingEvidence": "Analysis of 5,234 checkout sessions over 30 days. **34.2% abandon at payment step** when trying to go back. Sessions with back attempts have **$89.50 average cart value**. Browser analytics show **2.8 average back button clicks** before abandonment. **18% force-close browser tab** (extreme friction signal). A/B test on competitor sites shows back button reduces abandonment by 28%.",
       "projectId": "123456"
     },
     {
       "id": "friction_004",
-      "name": "Complex UI Flow",
+      "sessionId": "sess_friction_004",
       "type": "FRICTION",
-      "description": "Users abandon during multi-step process",
-      "pageId": "placeholder_4",
+      "title": "Complex onboarding flow with 7 steps causing 68% abandonment—users overwhelmed",
+      "impact": "High",
+      "segment": "New users in onboarding flow (32% completion, ~6,789 users)",
+      "category": "Onboarding & Activation",
+      "location": "User onboarding wizard, first-time setup flow",
+      "description": "New users abandon during **7-step onboarding process** with only **32.1% completion rate**. Users who abandon spend average **14.5 minutes** attempting to complete (target: <5 minutes).\n\n**Drop-off analysis by step:**\n- **Step 3 (Chart Creation):** 47.2% abandon - *too complex, unclear options*\n- **Step 5 (Data Connection):** 23.1% abandon - *technical confusion*\n- **Step 6 (Tutorial):** 18.7% abandon - *tutorial too long*\n\n**Comparison data:**\n- Fast-track users (8.3%) skip tutorial and complete in **3.2 minutes**\n- Power users complete **5x faster** by taking decisive action\n- Users with pre-loaded data activate instantly\n\n**User sentiment:**\n- *\"Too many steps\"* (89 mentions)\n- *\"Don't know what to do\"* (67 mentions)\n- *\"Just let me try it\"* (45 mentions)",
+      "pageId": "placeholder",
       "severity": "HIGH",
       "contentMeta": {
-        "category": "COMPLEXITY",
         "affectedUsers": 6789,
         "completionRate": 32.1,
-        "avgTimeToComplete": 14.5,
-        "targetTime": 5.0,
+        "avgTimeToComplete": 870,
+        "targetTime": 300,
+        "dropOffSteps": [3, 5, 6],
         "detectedAt": "2025-11-08T16:45:00Z",
-        "linkedEvents": ["Step Started", "Step Abandoned"],
-        "dropOffSteps": [3, 5, 6]
+        "linkedEvents": ["Onboarding Started", "Step Viewed", "Step Abandoned", "Onboarding Completed"],
+        "linkedMetrics": ["activation_rate", "time_to_value", "onboarding_completion"]
       },
+      "sessionReplays": [
+        {
+          "sessionId": "onboard_001_session_1",
+          "userId": "user_5432",
+          "duration": 875,
+          "deviceType": "Mac",
+          "highlightTitle": "Abandoned at Step 3 - Chart Creation",
+          "highlightDescription": "User spent 12 minutes on step 3 hovering over options without clicking. Viewed help docs, then abandoned.",
+          "url": "https://app.amplitude.com/analytics/demo/session-replay/onboard001"
+        },
+        {
+          "sessionId": "onboard_001_session_2",
+          "userId": "user_2134",
+          "duration": 192,
+          "deviceType": "Desktop",
+          "highlightTitle": "Fast-Track User: Skipped Tutorial, Completed in 3.2 Minutes",
+          "highlightDescription": "Power user from competitor product. Skipped all tutorial steps and completed onboarding in 192 seconds.",
+          "url": "https://app.amplitude.com/analytics/demo/session-replay/onboard002"
+        }
+      ],
+      "recommendedActions": [
+        {
+          "id": "action_010",
+          "title": "Reduce onboarding to 3 core steps with optional advanced setup",
+          "actionType": "web_experiment",
+          "description": "Simplify to: (1) Choose template (2) Preview data (3) Activate. Move current steps 4-7 to optional 'Advanced Setup'. Test impact on completion rate.",
+          "linkedExperiment": "exp_003",
+          "estimatedImpact": "Increase activation rate by 52%"
+        },
+        {
+          "id": "action_011",
+          "title": "Provide pre-built templates instead of blank-slate chart creation",
+          "actionType": "web_experiment",
+          "description": "Replace step 3 with gallery of pre-configured chart templates users can customize. Users shown to complete 2.8x faster with templates.",
+          "linkedPR": "pr_002",
+          "estimatedImpact": "Reduce step 3 abandonment from 47% to 15%"
+        },
+        {
+          "id": "action_012",
+          "title": "Add 'Skip for now' option on all non-critical steps",
+          "actionType": "guide",
+          "description": "Allow experienced users to skip tutorial and optional setup. Offer to complete later via in-app prompts.",
+          "linkedGuide": "guide_004",
+          "estimatedImpact": "Fast-track 20% of users, improve completion by 18%"
+        }
+      ],
+      "supportingEvidence": "Analyzed 6,789 onboarding sessions over 60 days. **Only 32.1% complete all 7 steps**. Step 3 is biggest drop-off at 47.2%. Users who skip tutorial complete **5x faster (3.2 min vs 14.5 min)**. Template-based onboarding tested in competitor products shows **2.8x higher completion rate**. User interviews reveal steps 4-7 are 'nice to have' not critical for activation.",
       "projectId": "123456"
     },
     {
       "id": "friction_005",
-      "name": "Hidden Search Feature",
+      "sessionId": "sess_friction_005",
       "type": "FRICTION",
-      "description": "Search icon is not discoverable",
-      "pageId": "placeholder_5",
+      "title": "Hidden search feature with 8% usage despite 45% expected usage—discoverability crisis",
+      "impact": "Medium",
+      "segment": "Dashboard users who could benefit from search (92% unaware, ~12,456 users)",
+      "category": "Feature Discoverability",
+      "location": "Dashboard header, analytics home, main navigation",
+      "description": "Search functionality has **extremely low usage (8.3%)** despite being critical for power users. **Expected usage should be 45%** based on task complexity and user needs.\n\n**Discovery analysis:**\n- Users who *find* search are **3.2x more successful** at completing tasks\n- **92% of users never discover** the search feature\n- Average time to discover (for those who do): **8.5 sessions**\n- Heatmap shows **<2% clicks** in search icon area\n\n**User behavior patterns:**\n- Users **manually browse/scroll** instead of searching (**avg 12.4 tab switches**)\n- **68% eventually use search** after struggling with navigation\n- Users who discover search via tooltip have **85% retention** vs 45% overall\n\n**Feedback quotes:**\n- *\"Didn't know there was a search feature\"* (156 mentions)\n- *\"Took me forever to find search\"* (89 mentions)\n- *\"Why is this hidden?\"* (67 mentions)",
+      "pageId": "placeholder",
       "severity": "MEDIUM",
       "contentMeta": {
-        "category": "DISCOVERABILITY",
         "affectedUsers": 12456,
         "usageRate": 8.3,
         "expectedUsageRate": 45.0,
+        "discoveryTime": 8.5,
         "detectedAt": "2025-11-12T10:00:00Z",
-        "linkedEvents": ["Search Used"],
-        "relatedFeedback": ["Didn't know there was search", "Hard to find"]
+        "linkedEvents": ["Search Used", "Tab Switched", "Manual Navigation"],
+        "linkedMetrics": ["search_usage", "task_completion", "session_duration"]
       },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_006",
-      "name": "Error Message Unclear",
-      "type": "FRICTION",
-      "description": "Error messages don't explain what went wrong",
-      "pageId": "placeholder_6",
-      "severity": "MEDIUM",
-      "contentMeta": {
-        "category": "USABILITY",
-        "affectedUsers": 4521,
-        "errorRate": 35.2,
-        "detectedAt": "2025-11-11T14:20:00Z",
-        "linkedEvents": ["Error Shown"],
-        "relatedFeedback": ["Error doesn't help", "Confusing message"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_007",
-      "name": "Button Not Clickable",
-      "type": "FRICTION",
-      "description": "Primary CTA appears disabled or non-interactive",
-      "pageId": "placeholder_7",
-      "severity": "HIGH",
-      "contentMeta": {
-        "category": "INTERACTION",
-        "affectedUsers": 7823,
-        "clickAttempts": 3.4,
-        "successRate": 12.3,
-        "detectedAt": "2025-11-10T09:30:00Z",
-        "linkedEvents": ["Button Click Failed", "Rage Click"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_008",
-      "name": "Excessive Required Fields",
-      "type": "FRICTION",
-      "description": "Form has too many required fields, users abandon",
-      "pageId": "placeholder_8",
-      "severity": "HIGH",
-      "contentMeta": {
-        "category": "COMPLEXITY",
-        "affectedUsers": 5642,
-        "abandonRate": 52.1,
-        "avgFieldsCompleted": 4.2,
-        "totalRequiredFields": 12,
-        "detectedAt": "2025-11-09T15:45:00Z",
-        "linkedEvents": ["Form Started", "Form Abandoned"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_009",
-      "name": "Mobile Keyboard Covers Input",
-      "type": "FRICTION",
-      "description": "Mobile keyboard obscures submit button",
-      "pageId": "placeholder_9",
-      "severity": "MEDIUM",
-      "contentMeta": {
-        "category": "MOBILE_UX",
-        "affectedUsers": 3241,
-        "deviceTypes": ["iOS", "Android"],
-        "abandonRate": 28.7,
-        "detectedAt": "2025-11-12T16:00:00Z",
-        "linkedEvents": ["Keyboard Shown", "Form Abandoned"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_010",
-      "name": "Broken Link",
-      "type": "FRICTION",
-      "description": "Link returns 404 error",
-      "pageId": "placeholder_10",
-      "severity": "HIGH",
-      "contentMeta": {
-        "category": "TECHNICAL",
-        "affectedUsers": 2134,
-        "errorRate": 100,
-        "detectedAt": "2025-11-13T08:15:00Z",
-        "linkedEvents": ["Link Clicked", "404 Error"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_011",
-      "name": "Auto-logout Too Aggressive",
-      "type": "FRICTION",
-      "description": "Users get logged out mid-task",
-      "pageId": "placeholder_11",
-      "severity": "HIGH",
-      "contentMeta": {
-        "category": "SESSION",
-        "affectedUsers": 9234,
-        "complaintsCount": 156,
-        "avgSessionTime": 8.5,
-        "timeoutLimit": 10,
-        "detectedAt": "2025-11-08T11:30:00Z",
-        "linkedEvents": ["Session Timeout", "Re-login Required"],
-        "relatedFeedback": ["Lost my work", "Session expired too soon"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_012",
-      "name": "Dropdown Not Scrollable",
-      "type": "FRICTION",
-      "description": "Long dropdown list can't be scrolled on mobile",
-      "pageId": "placeholder_12",
-      "severity": "MEDIUM",
-      "contentMeta": {
-        "category": "MOBILE_UX",
-        "affectedUsers": 2841,
-        "deviceTypes": ["iOS", "Android"],
-        "detectedAt": "2025-11-11T10:45:00Z",
-        "linkedEvents": ["Dropdown Opened", "Dropdown Abandoned"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_013",
-      "name": "Validation Too Strict",
-      "type": "FRICTION",
-      "description": "Password validation rejects valid passwords",
-      "pageId": "placeholder_13",
-      "severity": "HIGH",
-      "contentMeta": {
-        "category": "VALIDATION",
-        "affectedUsers": 4521,
-        "errorRate": 42.3,
-        "avgAttempts": 3.7,
-        "detectedAt": "2025-11-10T14:20:00Z",
-        "linkedEvents": ["Password Invalid", "Signup Abandoned"],
-        "relatedFeedback": ["Password rules too complex", "Can't create account"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_014",
-      "name": "Image Won't Upload",
-      "type": "FRICTION",
-      "description": "Image upload fails silently",
-      "pageId": "placeholder_14",
-      "severity": "MEDIUM",
-      "contentMeta": {
-        "category": "TECHNICAL",
-        "affectedUsers": 1823,
-        "errorRate": 38.4,
-        "detectedAt": "2025-11-12T09:30:00Z",
-        "linkedEvents": ["Upload Started", "Upload Failed"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_015",
-      "name": "Filter Not Working",
-      "type": "FRICTION",
-      "description": "Filter dropdown doesn't filter results",
-      "pageId": "placeholder_15",
-      "severity": "MEDIUM",
-      "contentMeta": {
-        "category": "FUNCTIONALITY",
-        "affectedUsers": 5234,
-        "complaintsCount": 89,
-        "detectedAt": "2025-11-09T16:15:00Z",
-        "linkedEvents": ["Filter Applied", "Filter Cleared"],
-        "relatedFeedback": ["Filter doesn't work", "Results don't change"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_016",
-      "name": "Infinite Loading Spinner",
-      "type": "FRICTION",
-      "description": "Page gets stuck in loading state",
-      "pageId": "placeholder_16",
-      "severity": "HIGH",
-      "contentMeta": {
-        "category": "TECHNICAL",
-        "affectedUsers": 3456,
-        "errorRate": 15.7,
-        "avgWaitTime": 45.2,
-        "detectedAt": "2025-11-11T11:45:00Z",
-        "linkedEvents": ["Loading Started", "Page Reload"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_017",
-      "name": "Text Too Small",
-      "type": "FRICTION",
-      "description": "Important text unreadable on mobile",
-      "pageId": "placeholder_17",
-      "severity": "LOW",
-      "contentMeta": {
-        "category": "ACCESSIBILITY",
-        "affectedUsers": 2134,
-        "fontSize": "10px",
-        "recommendedSize": "16px",
-        "deviceTypes": ["mobile"],
-        "detectedAt": "2025-11-10T15:20:00Z",
-        "linkedEvents": ["Zoom Used"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_018",
-      "name": "Modal Can't Be Closed",
-      "type": "FRICTION",
-      "description": "No X button or escape key handler on modal",
-      "pageId": "placeholder_18",
-      "severity": "HIGH",
-      "contentMeta": {
-        "category": "INTERACTION",
-        "affectedUsers": 4823,
-        "escapeAttempts": 2.8,
-        "abandonRate": 34.5,
-        "detectedAt": "2025-11-12T14:30:00Z",
-        "linkedEvents": ["Modal Opened", "Page Reload"],
-        "relatedFeedback": ["Can't close popup", "Stuck on screen"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_019",
-      "name": "Autocomplete Picks Wrong Value",
-      "type": "FRICTION",
-      "description": "Address autocomplete selects incorrect address",
-      "pageId": "placeholder_19",
-      "severity": "MEDIUM",
-      "contentMeta": {
-        "category": "USABILITY",
-        "affectedUsers": 2945,
-        "errorRate": 23.4,
-        "manualCorrectionRate": 67.8,
-        "detectedAt": "2025-11-11T09:45:00Z",
-        "linkedEvents": ["Autocomplete Selected", "Field Manually Edited"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_020",
-      "name": "Settings Not Saved",
-      "type": "FRICTION",
-      "description": "User preferences reset after page reload",
-      "pageId": "placeholder_20",
-      "severity": "HIGH",
-      "contentMeta": {
-        "category": "TECHNICAL",
-        "affectedUsers": 6234,
-        "complaintsCount": 234,
-        "detectedAt": "2025-11-10T10:30:00Z",
-        "linkedEvents": ["Settings Changed", "Page Reload"],
-        "relatedFeedback": ["Settings don't save", "Preferences lost"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_021",
-      "name": "Chart Data Not Loading",
-      "type": "FRICTION",
-      "description": "Charts show empty state instead of data",
-      "pageId": "placeholder_21",
-      "severity": "HIGH",
-      "contentMeta": {
-        "category": "TECHNICAL",
-        "affectedUsers": 5123,
-        "errorRate": 18.9,
-        "detectedAt": "2025-11-12T13:15:00Z",
-        "linkedEvents": ["Chart Viewed", "Empty State Shown"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_022",
-      "name": "Date Picker Broken",
-      "type": "FRICTION",
-      "description": "Date picker doesn't allow future dates",
-      "pageId": "placeholder_22",
-      "severity": "MEDIUM",
-      "contentMeta": {
-        "category": "FUNCTIONALITY",
-        "affectedUsers": 3421,
-        "errorRate": 45.2,
-        "detectedAt": "2025-11-09T14:50:00Z",
-        "linkedEvents": ["Date Selected", "Validation Error"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_023",
-      "name": "Copy Button Not Working",
-      "type": "FRICTION",
-      "description": "Copy to clipboard functionality fails",
-      "pageId": "placeholder_23",
-      "severity": "LOW",
-      "contentMeta": {
-        "category": "INTERACTION",
-        "affectedUsers": 1823,
-        "successRate": 34.2,
-        "detectedAt": "2025-11-11T16:30:00Z",
-        "linkedEvents": ["Copy Clicked"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_024",
-      "name": "Table Not Sortable",
-      "type": "FRICTION",
-      "description": "Users click column headers expecting sort",
-      "pageId": "placeholder_24",
-      "severity": "MEDIUM",
-      "contentMeta": {
-        "category": "USABILITY",
-        "affectedUsers": 4234,
-        "clickAttempts": 2.4,
-        "detectedAt": "2025-11-10T11:20:00Z",
-        "linkedEvents": ["Column Header Clicked"]
-      },
-      "projectId": "123456"
-    },
-    {
-      "id": "friction_025",
-      "name": "Tooltip Doesn't Appear",
-      "type": "FRICTION",
-      "description": "Hover tooltips fail to display help text",
-      "pageId": "placeholder_25",
-      "severity": "LOW",
-      "contentMeta": {
-        "category": "INTERACTION",
-        "affectedUsers": 2341,
-        "detectedAt": "2025-11-12T10:45:00Z",
-        "linkedEvents": ["Hover Event"]
-      },
+      "sessionReplays": [
+        {
+          "sessionId": "search_001_session_1",
+          "userId": "user_9821",
+          "duration": 420,
+          "deviceType": "Desktop",
+          "highlightTitle": "Tab Switching 12 Times Before Finding Search",
+          "highlightDescription": "User switched between 12 tabs looking for specific content. Eventually discovered search in session 3.",
+          "url": "https://app.amplitude.com/analytics/demo/session-replay/search001"
+        }
+      ],
+      "recommendedActions": [
+        {
+          "id": "action_013",
+          "title": "Add prominent search bar in main navigation header",
+          "actionType": "web_experiment",
+          "description": "Move search from hidden icon to visible search bar with placeholder text. Test placement (left vs center vs right) and sizing.",
+          "linkedExperiment": "exp_006",
+          "estimatedImpact": "Increase search usage from 8% to 35%+"
+        },
+        {
+          "id": "action_014",
+          "title": "Add onboarding tooltip highlighting search feature",
+          "actionType": "guide",
+          "description": "On first dashboard visit, show tooltip: 'Tip: Use search (⌘K) to quickly find anything'. Increase feature awareness.",
+          "linkedGuide": "guide_002",
+          "estimatedImpact": "Improve search discovery by 200%"
+        },
+        {
+          "id": "action_015",
+          "title": "Implement keyboard shortcut (⌘K / Ctrl+K) for power users",
+          "actionType": "web_experiment",
+          "description": "Add universal keyboard shortcut to trigger search from anywhere. Show shortcut hint in UI.",
+          "linkedPR": "pr_005",
+          "estimatedImpact": "Increase power user retention by 25%"
+        }
+      ],
+      "supportingEvidence": "Heatmap analysis of 28,945 dashboard sessions shows search icon receives **<2% of clicks**. Eye-tracking studies indicate icon is **outside primary visual scan path**. Users who discover search show **3.2x higher task success rate** and **2.1x longer session duration** (positive engagement). Competitor analysis shows prominent search bars have **35-50% usage rates** vs our 8.3%.",
       "projectId": "123456"
     }
   ]

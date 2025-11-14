@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useNodes, useViewport } from '@xyflow/react';
 import { useMapStore } from '../store/mapStore';
+import { InsightCard } from './InsightCard';
 import type {
   Chart,
   Dashboard,
@@ -43,12 +44,14 @@ interface OverlayMarker {
   impact?: string;
   metric?: any;
   url?: string;
+  fullData?: any; // Store full insight object for detailed view
 }
 
 export function LayerOverlay() {
   const { data, layers } = useMapStore();
   const nodes = useNodes();
   const viewport = useViewport();
+  const [selectedInsight, setSelectedInsight] = useState<FrictionPoint | null>(null);
 
   const markers = useMemo((): OverlayMarker[] => {
     if (!data || !layers.activeLayer) return [];
@@ -156,9 +159,11 @@ export function LayerOverlay() {
           id: friction.id,
           type: 'friction',
           pageId: friction.pageId,
-          name: friction.name,
+          name: friction.title,
           description: friction.description,
           severity: friction.severity,
+          impact: friction.impact,
+          fullData: friction, // Store full insight for detailed view
         })) || [];
 
       case 'behavioral':
@@ -255,18 +260,35 @@ export function LayerOverlay() {
 
   if (markerPositions.length === 0) return null;
 
+  const handleMarkerClick = (marker: OverlayMarker) => {
+    // For friction insights, show detail card
+    if (marker.type === 'friction' && marker.fullData) {
+      setSelectedInsight(marker.fullData as FrictionPoint);
+    }
+    // For other types with URLs, open in new tab
+    else if (marker.url) {
+      window.open(marker.url, '_blank');
+    }
+  };
+
   return (
-    <div className="layer-overlay">
-      {markerPositions.map((marker) => (
-        <LayerMarker
-          key={marker.id}
-          marker={marker}
-          x={marker.x}
-          y={marker.y}
-          zoom={viewport.zoom}
-        />
-      ))}
-    </div>
+    <>
+      <div className="layer-overlay">
+        {markerPositions.map((marker) => (
+          <LayerMarker
+            key={marker.id}
+            marker={marker}
+            x={marker.x}
+            y={marker.y}
+            zoom={viewport.zoom}
+            onClick={() => handleMarkerClick(marker)}
+          />
+        ))}
+      </div>
+      {selectedInsight && (
+        <InsightCard insight={selectedInsight} onClose={() => setSelectedInsight(null)} />
+      )}
+    </>
   );
 }
 
@@ -275,9 +297,10 @@ interface LayerMarkerProps {
   x: number;
   y: number;
   zoom: number;
+  onClick: () => void;
 }
 
-function LayerMarker({ marker, x, y, zoom }: LayerMarkerProps) {
+function LayerMarker({ marker, x, y, zoom, onClick }: LayerMarkerProps) {
   const getIcon = () => {
     switch (marker.type) {
       case 'chart':
@@ -314,15 +337,12 @@ function LayerMarker({ marker, x, y, zoom }: LayerMarkerProps) {
     if (marker.severity === 'HIGH') return '#ef4444';
     if (marker.severity === 'MEDIUM') return '#f59e0b';
     if (marker.severity === 'LOW') return '#10b981';
-    if (marker.impact === 'HIGH') return '#ef4444';
+    if (marker.impact === 'High') return '#ef4444';
+    if (marker.impact === 'Medium') return '#f59e0b';
     return '#3b82f6';
   };
 
-  const handleClick = () => {
-    if (marker.url) {
-      window.open(marker.url, '_blank');
-    }
-  };
+  const isClickable = marker.type === 'friction' || marker.url;
 
   return (
     <div
@@ -331,12 +351,12 @@ function LayerMarker({ marker, x, y, zoom }: LayerMarkerProps) {
         left: `${x}px`,
         top: `${y}px`,
         borderColor: getColor(),
-        cursor: marker.url ? 'pointer' : 'default',
+        cursor: isClickable ? 'pointer' : 'default',
         transform: `translate(-50%, -50%) scale(${zoom})`,
         transformOrigin: 'center center',
       }}
-      onClick={handleClick}
-      title={`${marker.name}\n${marker.description}`}
+      onClick={onClick}
+      title={`${marker.name}\n${marker.description.substring(0, 100)}...`}
     >
       <div className="marker-icon" style={{ color: getColor() }}>
         {getIcon()}

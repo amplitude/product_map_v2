@@ -26,7 +26,7 @@ export class FrictionPointService {
 
   async getFrictionByCategory(category: string): Promise<FrictionPoint[]> {
     const friction = await this.getFrictionPoints();
-    return friction.filter((f) => f.contentMeta.category === category);
+    return friction.filter((f) => f.category === category);
   }
 
   async getCriticalFriction(): Promise<FrictionPoint[]> {
