@@ -11,6 +11,7 @@ import type { Node, Edge } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { PageNode } from './PageNode';
 import { JourneyStepNode } from './JourneyStepNode';
+import { LayerOverlay } from './LayerOverlay';
 import { useMapStore } from '../store/mapStore';
 import type { PageNode as PageNodeType } from '../types';
 
@@ -213,6 +214,7 @@ export function ProductMap() {
             marginTop: '16px',
           }}
         />
+        <LayerOverlay />
       </ReactFlow>
     </div>
   );

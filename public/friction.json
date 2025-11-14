@@ -1,0 +1,432 @@
+{
+  "frictionPoints": [
+    {
+      "id": "friction_001",
+      "name": "Slow Page Load",
+      "type": "FRICTION",
+      "description": "Page takes >3s to load, users drop off",
+      "pageId": "placeholder_1",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "PERFORMANCE",
+        "affectedUsers": 8923,
+        "dropOffRate": 42.3,
+        "avgLoadTime": 5.2,
+        "targetLoadTime": 2.0,
+        "detectedAt": "2025-11-10T14:30:00Z",
+        "linkedEvents": ["Page Viewed", "User Exited"],
+        "linkedMetrics": ["bounce_rate", "load_time"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_002",
+      "name": "Confusing Form Labels",
+      "type": "FRICTION",
+      "description": "Users repeatedly misunderstand form fields",
+      "pageId": "placeholder_2",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "USABILITY",
+        "affectedUsers": 3456,
+        "errorRate": 28.4,
+        "avgRetries": 2.3,
+        "detectedAt": "2025-11-11T09:15:00Z",
+        "linkedEvents": ["Form Error", "Field Edited"],
+        "relatedFeedback": ["Form is confusing", "Labels are unclear"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_003",
+      "name": "Missing Back Button",
+      "type": "FRICTION",
+      "description": "Users cannot navigate back easily",
+      "pageId": "placeholder_3",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "NAVIGATION",
+        "affectedUsers": 5234,
+        "abandonRate": 34.2,
+        "detectedAt": "2025-11-09T11:20:00Z",
+        "linkedEvents": ["Browser Back Button"],
+        "relatedFeedback": ["Can't go back", "Navigation is broken"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_004",
+      "name": "Complex UI Flow",
+      "type": "FRICTION",
+      "description": "Users abandon during multi-step process",
+      "pageId": "placeholder_4",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "COMPLEXITY",
+        "affectedUsers": 6789,
+        "completionRate": 32.1,
+        "avgTimeToComplete": 14.5,
+        "targetTime": 5.0,
+        "detectedAt": "2025-11-08T16:45:00Z",
+        "linkedEvents": ["Step Started", "Step Abandoned"],
+        "dropOffSteps": [3, 5, 6]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_005",
+      "name": "Hidden Search Feature",
+      "type": "FRICTION",
+      "description": "Search icon is not discoverable",
+      "pageId": "placeholder_5",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "DISCOVERABILITY",
+        "affectedUsers": 12456,
+        "usageRate": 8.3,
+        "expectedUsageRate": 45.0,
+        "detectedAt": "2025-11-12T10:00:00Z",
+        "linkedEvents": ["Search Used"],
+        "relatedFeedback": ["Didn't know there was search", "Hard to find"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_006",
+      "name": "Error Message Unclear",
+      "type": "FRICTION",
+      "description": "Error messages don't explain what went wrong",
+      "pageId": "placeholder_6",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "USABILITY",
+        "affectedUsers": 4521,
+        "errorRate": 35.2,
+        "detectedAt": "2025-11-11T14:20:00Z",
+        "linkedEvents": ["Error Shown"],
+        "relatedFeedback": ["Error doesn't help", "Confusing message"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_007",
+      "name": "Button Not Clickable",
+      "type": "FRICTION",
+      "description": "Primary CTA appears disabled or non-interactive",
+      "pageId": "placeholder_7",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "INTERACTION",
+        "affectedUsers": 7823,
+        "clickAttempts": 3.4,
+        "successRate": 12.3,
+        "detectedAt": "2025-11-10T09:30:00Z",
+        "linkedEvents": ["Button Click Failed", "Rage Click"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_008",
+      "name": "Excessive Required Fields",
+      "type": "FRICTION",
+      "description": "Form has too many required fields, users abandon",
+      "pageId": "placeholder_8",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "COMPLEXITY",
+        "affectedUsers": 5642,
+        "abandonRate": 52.1,
+        "avgFieldsCompleted": 4.2,
+        "totalRequiredFields": 12,
+        "detectedAt": "2025-11-09T15:45:00Z",
+        "linkedEvents": ["Form Started", "Form Abandoned"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_009",
+      "name": "Mobile Keyboard Covers Input",
+      "type": "FRICTION",
+      "description": "Mobile keyboard obscures submit button",
+      "pageId": "placeholder_9",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "MOBILE_UX",
+        "affectedUsers": 3241,
+        "deviceTypes": ["iOS", "Android"],
+        "abandonRate": 28.7,
+        "detectedAt": "2025-11-12T16:00:00Z",
+        "linkedEvents": ["Keyboard Shown", "Form Abandoned"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_010",
+      "name": "Broken Link",
+      "type": "FRICTION",
+      "description": "Link returns 404 error",
+      "pageId": "placeholder_10",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "TECHNICAL",
+        "affectedUsers": 2134,
+        "errorRate": 100,
+        "detectedAt": "2025-11-13T08:15:00Z",
+        "linkedEvents": ["Link Clicked", "404 Error"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_011",
+      "name": "Auto-logout Too Aggressive",
+      "type": "FRICTION",
+      "description": "Users get logged out mid-task",
+      "pageId": "placeholder_11",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "SESSION",
+        "affectedUsers": 9234,
+        "complaintsCount": 156,
+        "avgSessionTime": 8.5,
+        "timeoutLimit": 10,
+        "detectedAt": "2025-11-08T11:30:00Z",
+        "linkedEvents": ["Session Timeout", "Re-login Required"],
+        "relatedFeedback": ["Lost my work", "Session expired too soon"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_012",
+      "name": "Dropdown Not Scrollable",
+      "type": "FRICTION",
+      "description": "Long dropdown list can't be scrolled on mobile",
+      "pageId": "placeholder_12",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "MOBILE_UX",
+        "affectedUsers": 2841,
+        "deviceTypes": ["iOS", "Android"],
+        "detectedAt": "2025-11-11T10:45:00Z",
+        "linkedEvents": ["Dropdown Opened", "Dropdown Abandoned"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_013",
+      "name": "Validation Too Strict",
+      "type": "FRICTION",
+      "description": "Password validation rejects valid passwords",
+      "pageId": "placeholder_13",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "VALIDATION",
+        "affectedUsers": 4521,
+        "errorRate": 42.3,
+        "avgAttempts": 3.7,
+        "detectedAt": "2025-11-10T14:20:00Z",
+        "linkedEvents": ["Password Invalid", "Signup Abandoned"],
+        "relatedFeedback": ["Password rules too complex", "Can't create account"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_014",
+      "name": "Image Won't Upload",
+      "type": "FRICTION",
+      "description": "Image upload fails silently",
+      "pageId": "placeholder_14",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "TECHNICAL",
+        "affectedUsers": 1823,
+        "errorRate": 38.4,
+        "detectedAt": "2025-11-12T09:30:00Z",
+        "linkedEvents": ["Upload Started", "Upload Failed"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_015",
+      "name": "Filter Not Working",
+      "type": "FRICTION",
+      "description": "Filter dropdown doesn't filter results",
+      "pageId": "placeholder_15",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "FUNCTIONALITY",
+        "affectedUsers": 5234,
+        "complaintsCount": 89,
+        "detectedAt": "2025-11-09T16:15:00Z",
+        "linkedEvents": ["Filter Applied", "Filter Cleared"],
+        "relatedFeedback": ["Filter doesn't work", "Results don't change"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_016",
+      "name": "Infinite Loading Spinner",
+      "type": "FRICTION",
+      "description": "Page gets stuck in loading state",
+      "pageId": "placeholder_16",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "TECHNICAL",
+        "affectedUsers": 3456,
+        "errorRate": 15.7,
+        "avgWaitTime": 45.2,
+        "detectedAt": "2025-11-11T11:45:00Z",
+        "linkedEvents": ["Loading Started", "Page Reload"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_017",
+      "name": "Text Too Small",
+      "type": "FRICTION",
+      "description": "Important text unreadable on mobile",
+      "pageId": "placeholder_17",
+      "severity": "LOW",
+      "contentMeta": {
+        "category": "ACCESSIBILITY",
+        "affectedUsers": 2134,
+        "fontSize": "10px",
+        "recommendedSize": "16px",
+        "deviceTypes": ["mobile"],
+        "detectedAt": "2025-11-10T15:20:00Z",
+        "linkedEvents": ["Zoom Used"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_018",
+      "name": "Modal Can't Be Closed",
+      "type": "FRICTION",
+      "description": "No X button or escape key handler on modal",
+      "pageId": "placeholder_18",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "INTERACTION",
+        "affectedUsers": 4823,
+        "escapeAttempts": 2.8,
+        "abandonRate": 34.5,
+        "detectedAt": "2025-11-12T14:30:00Z",
+        "linkedEvents": ["Modal Opened", "Page Reload"],
+        "relatedFeedback": ["Can't close popup", "Stuck on screen"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_019",
+      "name": "Autocomplete Picks Wrong Value",
+      "type": "FRICTION",
+      "description": "Address autocomplete selects incorrect address",
+      "pageId": "placeholder_19",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "USABILITY",
+        "affectedUsers": 2945,
+        "errorRate": 23.4,
+        "manualCorrectionRate": 67.8,
+        "detectedAt": "2025-11-11T09:45:00Z",
+        "linkedEvents": ["Autocomplete Selected", "Field Manually Edited"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_020",
+      "name": "Settings Not Saved",
+      "type": "FRICTION",
+      "description": "User preferences reset after page reload",
+      "pageId": "placeholder_20",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "TECHNICAL",
+        "affectedUsers": 6234,
+        "complaintsCount": 234,
+        "detectedAt": "2025-11-10T10:30:00Z",
+        "linkedEvents": ["Settings Changed", "Page Reload"],
+        "relatedFeedback": ["Settings don't save", "Preferences lost"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_021",
+      "name": "Chart Data Not Loading",
+      "type": "FRICTION",
+      "description": "Charts show empty state instead of data",
+      "pageId": "placeholder_21",
+      "severity": "HIGH",
+      "contentMeta": {
+        "category": "TECHNICAL",
+        "affectedUsers": 5123,
+        "errorRate": 18.9,
+        "detectedAt": "2025-11-12T13:15:00Z",
+        "linkedEvents": ["Chart Viewed", "Empty State Shown"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_022",
+      "name": "Date Picker Broken",
+      "type": "FRICTION",
+      "description": "Date picker doesn't allow future dates",
+      "pageId": "placeholder_22",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "FUNCTIONALITY",
+        "affectedUsers": 3421,
+        "errorRate": 45.2,
+        "detectedAt": "2025-11-09T14:50:00Z",
+        "linkedEvents": ["Date Selected", "Validation Error"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_023",
+      "name": "Copy Button Not Working",
+      "type": "FRICTION",
+      "description": "Copy to clipboard functionality fails",
+      "pageId": "placeholder_23",
+      "severity": "LOW",
+      "contentMeta": {
+        "category": "INTERACTION",
+        "affectedUsers": 1823,
+        "successRate": 34.2,
+        "detectedAt": "2025-11-11T16:30:00Z",
+        "linkedEvents": ["Copy Clicked"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_024",
+      "name": "Table Not Sortable",
+      "type": "FRICTION",
+      "description": "Users click column headers expecting sort",
+      "pageId": "placeholder_24",
+      "severity": "MEDIUM",
+      "contentMeta": {
+        "category": "USABILITY",
+        "affectedUsers": 4234,
+        "clickAttempts": 2.4,
+        "detectedAt": "2025-11-10T11:20:00Z",
+        "linkedEvents": ["Column Header Clicked"]
+      },
+      "projectId": "123456"
+    },
+    {
+      "id": "friction_025",
+      "name": "Tooltip Doesn't Appear",
+      "type": "FRICTION",
+      "description": "Hover tooltips fail to display help text",
+      "pageId": "placeholder_25",
+      "severity": "LOW",
+      "contentMeta": {
+        "category": "INTERACTION",
+        "affectedUsers": 2341,
+        "detectedAt": "2025-11-12T10:45:00Z",
+        "linkedEvents": ["Hover Event"]
+      },
+      "projectId": "123456"
+    }
+  ]
+}

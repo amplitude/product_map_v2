@@ -1,7 +1,24 @@
 import { useState } from 'react';
 import { useMapStore } from '../store/mapStore';
 import type { LayerType } from '../types';
-import { Layers, Tag, AlertTriangle, Activity, Zap, Flame, Brain, Database, Microscope, Sparkles } from 'lucide-react';
+import {
+  Layers,
+  Tag,
+  Database,
+  BarChart3,
+  LayoutDashboard,
+  Users,
+  GitPullRequest,
+  FlaskConical,
+  Target,
+  Lightbulb,
+  Activity,
+  AlertTriangle,
+  Gauge,
+  Navigation,
+  ListChecks,
+  Brain,
+} from 'lucide-react';
 
 interface NavCategory {
   id: string;
@@ -20,8 +37,8 @@ interface NavItem {
 
 const NAV_STRUCTURE: NavCategory[] = [
   {
-    id: 'data-sources',
-    label: 'Data Sources',
+    id: 'data-management',
+    label: 'Data Management',
     icon: Database,
     color: '#3b82f6',
     items: [
@@ -31,19 +48,45 @@ const NAV_STRUCTURE: NavCategory[] = [
         icon: Tag,
         stats: { value: '2.8K', label: 'Events' },
       },
+    ],
+  },
+  {
+    id: 'analytics',
+    label: 'Analytics',
+    icon: BarChart3,
+    color: '#8b5cf6',
+    items: [
       {
-        id: 'heatmap',
-        label: 'Heatmap',
-        icon: Flame,
-        stats: { value: '12.4K', label: 'Clicks' },
+        id: 'metrics',
+        label: 'Metrics',
+        icon: Activity,
+        stats: { value: 156, label: 'Tracked' },
+      },
+      {
+        id: 'charts',
+        label: 'Charts',
+        icon: BarChart3,
+        stats: { value: 8, label: 'Active' },
+      },
+      {
+        id: 'dashboards',
+        label: 'Dashboards',
+        icon: LayoutDashboard,
+        stats: { value: 12, label: 'Views' },
+      },
+      {
+        id: 'cohorts',
+        label: 'Cohorts',
+        icon: Users,
+        stats: { value: '24', label: 'Groups' },
       },
     ],
   },
   {
-    id: 'analysis',
-    label: 'Analysis Tools',
-    icon: Microscope,
-    color: '#8b5cf6',
+    id: 'product-insights',
+    label: 'Product Insights',
+    icon: Lightbulb,
+    color: '#f59e0b',
     items: [
       {
         id: 'friction',
@@ -52,37 +95,67 @@ const NAV_STRUCTURE: NavCategory[] = [
         stats: { value: 23, label: 'Issues' },
       },
       {
-        id: 'engagement',
-        label: 'Engagement',
-        icon: Activity,
-        stats: { value: '64%', label: 'Avg' },
+        id: 'behavioral',
+        label: 'Behavioral',
+        icon: Users,
+        stats: { value: '89%', label: 'Engaged' },
       },
       {
-        id: 'actions',
-        label: 'Actions',
-        icon: Zap,
-        stats: { value: 5, label: 'Active' },
+        id: 'performance',
+        label: 'Performance',
+        icon: Gauge,
+        stats: { value: '2.4s', label: 'Avg Load' },
+      },
+      {
+        id: 'navigation',
+        label: 'Navigation',
+        icon: Navigation,
+        stats: { value: '156', label: 'Paths' },
+      },
+      {
+        id: 'tasks',
+        label: 'Tasks',
+        icon: ListChecks,
+        stats: { value: '72%', label: 'Complete' },
+      },
+      {
+        id: 'ai_feedback',
+        label: 'AI Feedback',
+        icon: Brain,
+        stats: { value: 14, label: 'Insights' },
       },
     ],
   },
   {
-    id: 'ai-insights',
-    label: 'AI Insights',
-    icon: Sparkles,
-    color: '#f59e0b',
+    id: 'actions',
+    label: 'Actions',
+    icon: Target,
+    color: '#10b981',
     items: [
       {
-        id: 'ai_feedback',
-        label: 'Feedback',
-        icon: Brain,
-        stats: { value: 14, label: 'Suggestions' },
+        id: 'pull_requests',
+        label: 'Pull Requests',
+        icon: GitPullRequest,
+        stats: { value: 7, label: 'Open' },
+      },
+      {
+        id: 'experiments',
+        label: 'Experiments',
+        icon: FlaskConical,
+        stats: { value: 4, label: 'Running' },
+      },
+      {
+        id: 'guides_surveys',
+        label: 'Guides & Surveys',
+        icon: Target,
+        stats: { value: 12, label: 'Active' },
       },
     ],
   },
 ];
 
 export function FuturisticNav() {
-  const [expandedCategory, setExpandedCategory] = useState<string | null>('data-sources');
+  const [expandedCategory, setExpandedCategory] = useState<string | null>('data-management');
   const { layers, setActiveLayer } = useMapStore();
 
   const toggleCategory = (categoryId: string) => {
